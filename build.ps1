@@ -11,5 +11,5 @@ pyinstaller `
   --clean `
   --name PermittedAudioDownloader `
   --noconsole `
-  --add-data "assets;assets" `
-  app\main.py
+  --add-data "permitted_audio_downloader\assets;assets" `
+  permitted_audio_downloader\app\main.py
