@@ -7,10 +7,14 @@ from typing import Optional
 
 from PySide6 import QtCore
 
-from . import ffmpeg_service
-from .utils import resolve_output_path, sanitize_filename
-from .validators import ValidationError, get_source_label, validate_url
-from .ytdlp_service import download_audio
+from permitted_audio_downloader.app import ffmpeg_service
+from permitted_audio_downloader.app.utils import resolve_output_path, sanitize_filename
+from permitted_audio_downloader.app.validators import (
+    ValidationError,
+    get_source_label,
+    validate_url,
+)
+from permitted_audio_downloader.app.ytdlp_service import download_audio
 
 
 @dataclass

@@ -3,7 +3,7 @@ import os
 from dataclasses import dataclass, asdict
 from pathlib import Path
 
-from .utils import get_default_music_dir
+from permitted_audio_downloader.app.utils import get_default_music_dir
 
 
 @dataclass

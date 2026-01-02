@@ -1,14 +1,13 @@
 import sys
-from pathlib import Path
 
-from PySide6 import QtCore, QtWidgets
+from PySide6 import QtWidgets
 
 from permitted_audio_downloader.app.config import load_config, save_config
 from permitted_audio_downloader.app.download_manager import DownloadManager
 from permitted_audio_downloader.app.logging_setup import QtLogHandler, setup_logging
-from permitted_audio_downloader.app.validators import ValidationError, validate_url
-from permitted_audio_downloader.app.utils import get_default_music_dir
 from permitted_audio_downloader.app.ui_main import UiMainWindow
+from permitted_audio_downloader.app.utils import get_default_music_dir
+from permitted_audio_downloader.app.validators import ValidationError, validate_url
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -168,12 +167,12 @@ class MainWindow(QtWidgets.QMainWindow):
         save_config(self.config)
 
 
-def main() -> None:
+def main() -> int:
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
     window.show()
-    sys.exit(app.exec())
+    return app.exec()
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

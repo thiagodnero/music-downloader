@@ -24,7 +24,7 @@ O usuário é responsável pelo uso. O app não implementa qualquer mecanismo de
 python -m venv .venv
 . .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-python -m permitted_audio_downloader.app.main
+python run_app.py
 ```
 
 ## Build do executável (Windows)
@@ -42,5 +42,5 @@ python -m permitted_audio_downloader.app.main
 - Sem coleta de dados do usuário ou telemetria.
 
 ## Comandos principais
-- Rodar: `python -m permitted_audio_downloader.app.main`
+- Rodar: `python run_app.py`
 - Build: `./build.ps1`
