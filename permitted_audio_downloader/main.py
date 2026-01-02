@@ -1,3 +1,4 @@
+import os
 import sys
 
 from PySide6 import QtWidgets
@@ -6,7 +7,7 @@ from permitted_audio_downloader.app.config import load_config, save_config
 from permitted_audio_downloader.app.download_manager import DownloadManager
 from permitted_audio_downloader.app.logging_setup import QtLogHandler, setup_logging
 from permitted_audio_downloader.app.ui_main import UiMainWindow
-from permitted_audio_downloader.app.utils import get_default_music_dir
+from permitted_audio_downloader.app.utils import get_default_music_dir, get_ffmpeg_bin_dir
 from permitted_audio_downloader.app.validators import ValidationError, validate_url
 
 
@@ -18,6 +19,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.logger = setup_logging()
         self.config = load_config()
+        self.ffmpeg_bin_dir = get_ffmpeg_bin_dir()
+        if self.ffmpeg_bin_dir:
+            os.environ["PATH"] = f"{self.ffmpeg_bin_dir}{os.pathsep}{os.environ.get('PATH', '')}"
+            self.logger.info("ffmpeg encontrado em: %s", self.ffmpeg_bin_dir)
+        else:
+            self.logger.info(
+                "ffmpeg não encontrado em assets; usando PATH do sistema (se disponível)."
+            )
+
         self.download_manager = DownloadManager(self._current_options())
 
         self._setup_ui_state()
@@ -65,6 +75,7 @@ class MainWindow(QtWidgets.QMainWindow):
             "preserve_name": self.config.preserve_name,
             "overwrite": self.config.overwrite,
             "sample_rate": self.config.sample_rate,
+            "ffmpeg_bin_dir": self.ffmpeg_bin_dir,
         }
 
     def append_log(self, message: str) -> None:

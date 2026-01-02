@@ -67,7 +67,12 @@ class DownloadWorker(QtCore.QObject):
                         self.progress_changed.emit(self.index, percent)
                     self._check_cancelled()
 
-                info = download_audio(self.item.url, temp_dir, progress_callback=hook)
+                info = download_audio(
+                    self.item.url,
+                    temp_dir,
+                    progress_callback=hook,
+                    ffmpeg_location=self.options.get("ffmpeg_bin_dir"),
+                )
                 self._check_cancelled()
                 title = info.get("title") or "audio"
                 uploader = info.get("uploader") or ""

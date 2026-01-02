@@ -34,6 +34,7 @@ python run_app.py
 
 ### ffmpeg
 1. Preferencial: coloque `ffmpeg.exe` e `ffprobe.exe` em `permitted_audio_downloader/assets/ffmpeg/bin/`.
+   - Script opcional: `powershell -ExecutionPolicy Bypass -File permitted_audio_downloader/scripts/fetch_ffmpeg.ps1`
 2. Fallback: se não existir, o app tenta usar o `ffmpeg` disponível no PATH e exibirá instruções caso não encontre.
 
 ## Limitações e compliance

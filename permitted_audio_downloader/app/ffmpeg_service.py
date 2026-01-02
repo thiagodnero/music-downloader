@@ -1,37 +1,26 @@
-import os
 import subprocess
-import sys
 from pathlib import Path
+
+
+from permitted_audio_downloader.app.utils import get_ffmpeg_bin_dir
 
 
 class FfmpegNotFoundError(FileNotFoundError):
     pass
 
 
-def _base_path() -> Path:
-    if hasattr(sys, "_MEIPASS"):
-        return Path(sys._MEIPASS)
-    return Path(__file__).resolve().parents[1]
-
-
-def get_ffmpeg_paths() -> tuple[Path, Path]:
-    base = _base_path()
-    ffmpeg_path = base / "assets" / "ffmpeg" / "bin" / "ffmpeg.exe"
-    ffprobe_path = base / "assets" / "ffmpeg" / "bin" / "ffprobe.exe"
-    return ffmpeg_path, ffprobe_path
-
-
 def find_ffmpeg() -> str:
-    ffmpeg_path, _ = get_ffmpeg_paths()
-    if ffmpeg_path.exists():
-        return str(ffmpeg_path)
+    bin_dir = get_ffmpeg_bin_dir()
+    if bin_dir:
+        return str(bin_dir / "ffmpeg.exe")
     from shutil import which
 
     in_path = which("ffmpeg")
     if in_path:
         return in_path
     raise FfmpegNotFoundError(
-        "ffmpeg não encontrado. Coloque o binário em assets/ffmpeg/bin ou instale no PATH."
+        "ffmpeg não encontrado. Coloque ffmpeg.exe e ffprobe.exe em "
+        "permitted_audio_downloader/assets/ffmpeg/bin ou instale no PATH."
     )
 
 

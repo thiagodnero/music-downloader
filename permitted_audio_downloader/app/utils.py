@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 from pathlib import Path
 
 INVALID_CHARS = re.compile(r"[<>:\"/\\|?*]")
@@ -42,3 +43,16 @@ def resolve_output_path(output_dir: str, filename: str, overwrite: bool) -> Path
 def get_default_music_dir() -> str:
     home = Path.home()
     return str(home / "Music" / "PermittedAudioDownloader")
+
+
+def get_ffmpeg_bin_dir() -> Path | None:
+    if hasattr(sys, "_MEIPASS"):
+        base_dir = Path(sys._MEIPASS)
+    else:
+        base_dir = Path(__file__).resolve().parents[1]
+    bin_dir = base_dir / "assets" / "ffmpeg" / "bin"
+    ffmpeg_exe = bin_dir / "ffmpeg.exe"
+    ffprobe_exe = bin_dir / "ffprobe.exe"
+    if ffmpeg_exe.exists() and ffprobe_exe.exists():
+        return bin_dir
+    return None

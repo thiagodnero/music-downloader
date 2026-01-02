@@ -1,14 +1,20 @@
 from __future__ import annotations
 
 import os
-from typing import Callable, Any
+from pathlib import Path
+from typing import Any, Callable
 
 from yt_dlp import YoutubeDL
 
 ProgressCallback = Callable[[dict[str, Any]], None]
 
 
-def download_audio(url: str, temp_dir: str, progress_callback: ProgressCallback | None = None) -> dict[str, Any]:
+def download_audio(
+    url: str,
+    temp_dir: str,
+    progress_callback: ProgressCallback | None = None,
+    ffmpeg_location: Path | None = None,
+) -> dict[str, Any]:
     output_template = os.path.join(temp_dir, "%(id)s.%(ext)s")
 
     def hook(data: dict[str, Any]) -> None:
@@ -23,6 +29,8 @@ def download_audio(url: str, temp_dir: str, progress_callback: ProgressCallback 
         "noplaylist": True,
         "progress_hooks": [hook],
     }
+    if ffmpeg_location:
+        options["ffmpeg_location"] = str(ffmpeg_location)
 
     with YoutubeDL(options) as ydl:
         info = ydl.extract_info(url, download=True)
