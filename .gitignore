@@ -27,3 +27,4 @@ Thumbs.db
 
 # FFmpeg binaries (opcional versionar depois)
 assets/ffmpeg/bin/*.exe
+permitted_audio_downloader/assets/ffmpeg/bin/*.exe
