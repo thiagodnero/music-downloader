@@ -45,3 +45,10 @@ python run_app.py
 ## Comandos principais
 - Rodar: `python run_app.py`
 - Build: `./build.ps1`
+
+
+## Checklist manual da fila
+1. Adicione 3 URLs permitidas e clique em **Baixar** apenas uma vez.
+2. Verifique que os jobs executam em sequência automática (1, depois 2, depois 3) sem nova interação.
+3. Ao finalizar a fila, adicione mais 1 URL e clique em **Baixar**: deve iniciar normalmente sem reiniciar o app.
+4. Durante um download, use **Cancelar item** no item atual e confirme que o próximo job enfileirado inicia sozinho.
